@@ -1,0 +1,54 @@
+SECTION_A ---------- PRN_210543181026
+
+1)  List namefirst, namelast, and emailID of student whose studentID is not 5, 10, 15, display first 7 rows only.
+ANSWER: select namefirst,namelast,emailID from student where ID not in(5,10,15) limit 7;
+
+2)  List all student details and student_qualification whose college is in ‘New York’.
+ANSWER : select * from student_qualifications where college='NEW YORK';
+
+3) List all student details and student_qualification whose have done “BE” from “Florida” college.
+ANSWER : select * from student_qualifications where name='BE' and college='FLORIDA';
+
+4) Display the name, college, and university from the student_qualification who have passed in the year 2018.
+ANSWER : select name,college,university from student_qualifications where year='2018';
+
+5) Find the student details that have scored highest marks in 'BE'.
+ANSWER :select * from student_qualifications where name='BE' order by marks desc limit 1;
+
+6)  Write a query to count total student who have done 'BE' and year of passing is 2014.
+ANSWER : select count(*) from student,student_qualifications where student.ID=student_qualifications.studentID and name='BE' and year='2014';
+
+7)  Select all students records whose namefirst starts with 'S' and its length is 6 char.
+ANSWER : select * from student where namefirst like 'S%' and length(namefirst)=6;
+
+8)  Write a query to fetch first 4 records from Student Table, whose have done “BE” arrange the records in ascending order of namefirst.
+ANSWER : select * from student,student_qualifications where student.ID=student_qualifications.studentID and name='BE' order by namefirst limit 4;
+
+9)  Write a query to display the student details along with their phone number who have more than one phone.
+ANSWER : select * from student s,student_phone sp where s.id=sp.studentID group by s.namefirst having count(*)>2;
+
+10)  Write a query to display all students who are born in the month of ‘July’.
+ANSWER : select DOB as "month name",count(ID) as "no. of students" from student where monthname(DOB)='JULY';
+
+-----------------------------------------------------------------------------------------------------------------------------------------
+SECTION_B      PRN------210543181026
+
+
+drop procedure if exists studentinsert;
+delimiter $
+create procedure studentinsert(in _studentID int)
+begin
+	declare x bool default False;
+	select True into x from student where studentID = _studentID;
+	
+	if x then
+		select _studentId;
+	else
+		select "studenID Not Found" as "MSG";
+	end if;
+
+end $
+delimiter ;
+
+
+ 
